@@ -21,7 +21,8 @@ Ext.define('NotasErbase.view.MainTabNavigation', {
         items: [
             {
                 title: 'Locais',
-                html: 'Local',
+                xtype: 'notalist',
+                store: 'NotaLocalStore'
                 iconCls: 'bookmarks',
                 cls: 'card'
             },
