@@ -1,5 +1,5 @@
 /**
-* Define o modelo para o objeto Grupo
+* Define a aplicação sencha touch
 */
 Ext.Loader.setConfig({
     paths: {
@@ -11,11 +11,11 @@ Ext.application({
     name: 'NotasErbase',
     requires: [],
     controllers: [],
-    views: [],
+    views: ['NotasErbase.view.Main'],
 
     launch: function() {
 
-        
+        var main = Ext.create('NotasErbase.view.Main', {fullscreen: true});
 
     }
 
