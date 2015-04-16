@@ -7,7 +7,7 @@ Ext.Loader.setConfig({
 });
 Ext.application({
 
-    name: 'Sencha ERBASE 2015',
+    name: 'NotasErbase',
     requires: [],
     controllers: [],
     views: [],
