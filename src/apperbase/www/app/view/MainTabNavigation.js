@@ -4,7 +4,7 @@
 Ext.define('NotasErbase.view.MainTabNavigation', {
     extend: 'Ext.tab.Panel',
     xtype: "maintabnavigation",
-    requires: [],
+    requires: ['NotasErbase.view.NotaList'],
     config: {
         activeTab: 0,
         ui: 'light',
@@ -22,7 +22,7 @@ Ext.define('NotasErbase.view.MainTabNavigation', {
             {
                 title: 'Locais',
                 xtype: 'notalist',
-                store: 'NotaLocalStore'
+                store: 'NotaLocalStore',
                 iconCls: 'bookmarks',
                 cls: 'card'
             },

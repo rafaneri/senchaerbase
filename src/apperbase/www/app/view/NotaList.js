@@ -12,7 +12,7 @@ Ext.define('NotasErbase.view.NotaList',{
     },
     config: {
         itemTpl: '' +
-        '<div class="notas">{titulo}</div>'
+        '<div class="notas">{titulo}</div>' +
         '',
         grouped: true,
         pinHeaders: false,
