@@ -10,7 +10,7 @@ Ext.application({
 
     name: 'NotasErbase',
     requires: [],
-    controllers: [],
+    controllers: ['NotasErbase.controller.ApplicationController'],
     views: ['NotasErbase.view.Main'],
 
     launch: function() {

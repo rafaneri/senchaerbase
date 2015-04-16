@@ -14,18 +14,20 @@ Ext.define('NotasErbase.view.Main', {
         },
         navigationBar: {
             id: 'mainTitleBar',
-            androidAnimation: false
+            androidAnimation: false,
+            items: [
+                {
+                    xtype: 'button',
+                    id: 'btnAddGrupo',
+                    iconCls: 'add',
+                    align:'right',
+                    hidden: true
+                }
+            ]
         },
         items: [{
             title: 'Locais',
-            xtype: 'maintabnavigation',
-            listeners: {
-                activeitemchange: function(el, value, oldValue, eOpts) {
-                    var mainTitleBar = Ext.getCmp('mainTitleBar');
-                    var text = value.tab.getTitle();
-                    mainTitleBar.setTitle(text);
-                }
-            }
+            xtype: 'maintabnavigation'
         }]
     }
 });

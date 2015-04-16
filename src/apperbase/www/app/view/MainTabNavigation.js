@@ -4,7 +4,12 @@
 Ext.define('NotasErbase.view.MainTabNavigation', {
     extend: 'Ext.tab.Panel',
     xtype: "maintabnavigation",
-    requires: ['NotasErbase.view.NotaList'],
+    requires: ['NotasErbase.view.NotaList', 'NotasErbase.view.GrupoList'],
+    doActiveItemChange: function(el, value, oldValue, eOpts) {
+                
+        this.fireEvent('tabItemChange', el, value, oldValue, eOpts);
+
+    },
     config: {
         activeTab: 0,
         ui: 'light',
@@ -34,10 +39,14 @@ Ext.define('NotasErbase.view.MainTabNavigation', {
             },
             {
                 title: 'Configurações',
-                html: 'Configurações',
+                xtype: 'grupolist',
+                store: 'NotaLocalStore',
                 iconCls: 'settings',
                 cls: 'card'
             }
-        ]
+        ],
+        listeners: {
+            activeitemchange: 'doActiveItemChange'
+        }
     }
 });

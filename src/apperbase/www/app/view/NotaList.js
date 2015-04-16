@@ -1,5 +1,5 @@
 /**
-* Define a view que contem as tabs
+* Define a view que contem a lista de notas
 */
 Ext.define('NotasErbase.view.NotaList',{
     extend: 'Ext.dataview.List',
@@ -7,7 +7,7 @@ Ext.define('NotasErbase.view.NotaList',{
     requires: ['NotasErbase.model.Nota'],
     doNotaTap: function(list, index, target, record, e, eOpts) {
                 
-        this.fireEvent('exibirDetalheNota', this);
+        this.fireEvent('exibirNota', list, index, target, record, e, eOpts);
 
     },
     config: {
