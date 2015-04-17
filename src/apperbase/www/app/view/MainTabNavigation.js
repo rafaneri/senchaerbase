@@ -11,7 +11,6 @@ Ext.define('NotasErbase.view.MainTabNavigation', {
 
     },
     config: {
-        activeTab: 0,
         ui: 'light',
         tabBar: {
             layout: {
@@ -25,22 +24,22 @@ Ext.define('NotasErbase.view.MainTabNavigation', {
         },
         items: [
             {
-                title: 'Locais',
+                title: 'Notas Locais',
                 xtype: 'notalist',
                 store: 'NotaLocalStore',
                 iconCls: 'bookmarks',
                 cls: 'card'
             },
             {
-                title: 'Nuvem',
+                title: 'Notas Remotas',
                 html: 'Nuvem',
                 iconCls: 'locate',
                 cls: 'card'
             },
             {
-                title: 'Configurações',
+                title: 'Grupos',
                 xtype: 'grupolist',
-                store: 'NotaLocalStore',
+                store: 'GrupoStore',
                 iconCls: 'settings',
                 cls: 'card'
             }

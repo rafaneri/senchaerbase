@@ -3,21 +3,25 @@
 */
 Ext.define('NotasErbase.controller.ApplicationController', {
     extend: 'Ext.app.Controller',
-
     config: {
+        currentTitle: '', // mantém o titulo da view antes de sair para o form
         refs: {
             main: 'mainview',
-            btnAddGrupo: '#btnAddGrupo',
+            btnAdd: '#btnAdd',
             tabnavigation: 'maintabnavigation',
             notalist: 'notalist',
-            grupolist: 'grupolist'
+            grupolist: 'grupolist',
+            grupoform: 'grupoform'
         },
 
         control: {
             main: {
+                push: 'onMainPush',
+                pop: 'onMainPop',
+                back: 'onMainBack'
             },
-            btnAddGrupo: {
-                tap: 'onAdicionarGrupo'
+            btnAdd: {
+                tap: 'onAdd'
             },
             tabnavigation:{
                 tabItemChange: 'onTabItemChange'
@@ -27,28 +31,53 @@ Ext.define('NotasErbase.controller.ApplicationController', {
             },
             grupolist: {
                 exibirGrupo: 'onExibirGrupo'
+            },
+            grupoform: {
+                salvarGrupo: 'onSalvarGrupo',
+                removerGrupo: 'onRemoverGrupo'
             }
         }
     },
 
-    showBtnAddGrupo: function() {
-        var btnAddGrupo = this.getBtnAddGrupo();
-
-        if (!btnAddGrupo.isHidden()) {
-            return;
-        }
-
-        btnAddGrupo.show();
+    onMainPush: function(view, item) {
+        this.hideBtnAdd();
     },
 
-    hideBtnAddGrupo: function() {
-        var btnAddGrupo = this.getBtnAddGrupo();
+    onMainPop: function(view, item) {
+        this.showBtnAdd();
+    },
 
-        if (btnAddGrupo.isHidden()) {
+    onMainBack: function(view, item) {
+        this.setMainTitle(this.getCurrentTitle());
+    },
+
+    onAdd: function(el, e, eOpts) {
+        this.getMain().push(this.createForm());
+    },
+
+    onTabItemChange: function(el, value, oldValue, eOpts) {
+        var text = value.tab.getTitle();
+        this.setMainTitle(text);
+    }, 
+
+    showBtnAdd: function() {
+        var btnAdd = this.getBtnAdd();
+
+        if (!btnAdd.isHidden()) {
             return;
         }
 
-        btnAddGrupo.hide();
+        btnAdd.show();
+    },
+
+    hideBtnAdd: function() {
+        var btnAdd = this.getBtnAdd();
+
+        if (btnAdd.isHidden()) {
+            return;
+        }
+
+        btnAdd.hide();
     },
 
     onExibirNota: function(list, index, node, record) {
@@ -56,23 +85,57 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     },
 
     onExibirGrupo: function(list, index, node, record) {
-        console.log('event exibirGrupo');
-    },
-
-    onAdicionarGrupo: function(el, e, eOpts) {
-        console.log('Adicionar Grupo');
-    },
-
-    onTabItemChange: function(el, value, oldValue, eOpts) {
-        var mainTitleBar = this.getMain().getNavigationBar();
-        var text = value.tab.getTitle();
-        mainTitleBar.setTitle(text);
-
-        if (el.getActiveItem().xtype == "grupolist") {
-            this.showBtnAddGrupo();
-        } else {
-            this.hideBtnAddGrupo();
+        this.setCurrentTitle(this.getMainTitle());
+        if (!this.grupoform) {
+            this.grupoform = Ext.create('NotasErbase.view.GrupoForm');
         }
+        this.grupoform.setRecord(record, true);
+        this.grupoform.setTitle('Editar Grupo');
+        this.getMain().push(this.grupoform);
+    },
+
+    onRemoverGrupo: function(record) {
+        var store = Ext.data.StoreManager.lookup('GrupoStore');
+        store.remove(record);
+        this.getMain().pop();
+        this.setMainTitle(this.getCurrentTitle());
+    },
+
+    onSalvarGrupo: function(record) {
+        var store = Ext.data.StoreManager.lookup('GrupoStore');
+        store.add(record);
+        this.getMain().pop();
+        this.setMainTitle(this.getCurrentTitle());
+    },
+
+    getMainTitle: function() {
+        var mainTitleBar = this.getMain().getNavigationBar();
+        return mainTitleBar.getTitle();
+    },
+
+    setMainTitle: function(title) {
+        var mainTitleBar = this.getMain().getNavigationBar();
+        mainTitleBar.setTitle(title);
+    },
+
+    createForm: function() {
+        var form,
+            record;
+        this.setCurrentTitle(this.getMainTitle());
+        if(this.getActiveTab() == 'grupolist') {
+            if (!this.grupoform) {
+                this.grupoform = Ext.create('NotasErbase.view.GrupoForm');
+            }
+            this.grupoform.setTitle('Criar Grupo');
+            form = this.grupoform;
+            record = Ext.create('NotasErbase.model.Grupo');
+        }
+        form.setRecord(record);
+        return form;
+    },
+
+    getActiveTab: function() {
+        return this.getMain().getActiveItem().getActiveItem().xtype;
     }
 
 });

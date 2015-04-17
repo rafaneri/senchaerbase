@@ -8,14 +8,18 @@ Ext.define('NotasErbase.view.GrupoList',{
     doGrupoTap: function(list, index, target, record, e, eOpts) {
                 
         this.fireEvent('exibirGrupo', list, index, target, record, e, eOpts);
+        setTimeout(function() {
+            list.deselect(index);
+        }, 500);
 
     },
     config: {
+        allowDeselect: true,
         itemTpl: [
             '<div class="notas">{nome}</div>'
         ].join('')
-        // , listeners: {
-        //     itemtap: 'doGrupoTap'
-        // }
+        , listeners: {
+            itemtouchend: 'doGrupoTap'
+        }
     }
 });

@@ -6,6 +6,7 @@ Ext.define('NotasErbase.view.Main', {
     xtype: "mainview",
     requires: ['NotasErbase.view.MainTabNavigation'],
     config: {
+        autoDestroy: false,
         fullscreen: true,
         defaultBackButtonText: 'Voltar',
         useTitleForBackButtonText: false,
@@ -18,15 +19,14 @@ Ext.define('NotasErbase.view.Main', {
             items: [
                 {
                     xtype: 'button',
-                    id: 'btnAddGrupo',
+                    id: 'btnAdd',
                     iconCls: 'add',
-                    align:'right',
-                    hidden: true
+                    align:'right'
                 }
             ]
         },
         items: [{
-            title: 'Locais',
+            title: 'Notas Locais',
             xtype: 'maintabnavigation'
         }]
     }
