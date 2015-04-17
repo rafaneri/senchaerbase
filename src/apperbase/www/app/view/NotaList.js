@@ -19,7 +19,6 @@ Ext.define('NotasErbase.view.NotaList',{
             '<div class="notas">{titulo}</div>'
         ].join(''),
         grouped: true,
-        pinHeaders: false,
         listeners: {
             itemtap: 'doNotaTap'
         }

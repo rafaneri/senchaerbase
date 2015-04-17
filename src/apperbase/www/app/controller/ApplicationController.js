@@ -3,12 +3,15 @@
 */
 Ext.define('NotasErbase.controller.ApplicationController', {
     extend: 'Ext.app.Controller',
+    launch: function(){
+        // configurado default para notas locais
+        this.setDataStore(Ext.data.StoreManager.lookup('NotaLocalStore'));
+    },
     config: {
         // mantém o titulo da view antes de sair para o form
         currentTitle: '', 
         // mantém o data store a ser utilizado para nota
-        // configurado default para notas locais
-        dataStore: Ext.data.StoreManager.lookup('NotaLocalStore'), 
+        dataStore: null, 
         refs: {
             main: 'mainview',
             btnAdd: '#btnAdd',
@@ -68,7 +71,6 @@ Ext.define('NotasErbase.controller.ApplicationController', {
         var text = value.tab.getTitle();
         this.setMainTitle(text);
         this.setDataStore(value.getStore());
-        console.log(value.getStore().getId());
     }, 
 
     showBtnAdd: function() {
@@ -114,6 +116,7 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     onSalvarNota: function(record) {
         // var store = Ext.data.StoreManager.lookup('NotaLocalStore');
         this.getDataStore().add(record);
+        this.getDataStore().sync();
         this.getMain().pop();
         this.setMainTitle(this.getCurrentTitle());
     },
@@ -121,6 +124,7 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     onRemoverNota: function(record) {
         // var store = Ext.data.StoreManager.lookup('NotaLocalStore');
         this.getDataStore().remove(record);
+        this.getDataStore().sync();
         this.getMain().pop();
         this.setMainTitle(this.getCurrentTitle());
     },

@@ -11,6 +11,8 @@ Ext.define('NotasErbase.view.NotaForm',{
             record = formPanel.getRecord();
         formPanel.updateRecord(record);
 
+        console.log(formPanel.getValues());
+
         var erros = record.validate();
 
         if(!erros.isValid()) {
@@ -59,7 +61,7 @@ Ext.define('NotasErbase.view.NotaForm',{
                         {
                             xtype: 'selectfield',
                             label: 'Grupo',
-                            name: 'grupo',
+                            name: 'grupo_id',
                             store: 'GrupoStore',
                             valueField: 'id',
                             displayField: 'nome',

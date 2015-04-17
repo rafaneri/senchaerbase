@@ -5,15 +5,15 @@ Ext.define('NotasErbase.model.Nota', {
     extend: 'Ext.data.Model',
     uses: ['NotasErbase.model.Grupo'],
     config: {
+        identifier: 'sequential',
         fields: [
             {name: 'id', type: 'int'},
             {name: 'titulo', type: 'string'},
             {name: 'comentario', type: 'string'},
             {name: 'grupo_id', type: 'int'}
         ],
-        hasOne: {
-            model: 'NotasErbase.model.Grupo',
-            name: 'grupo'
+        belongsTo: {
+            model: 'NotasErbase.model.Grupo'
         },
         validations: [
             {type: 'length', field: 'titulo', min: 1}

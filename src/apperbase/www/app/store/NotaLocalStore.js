@@ -6,9 +6,13 @@ Ext.define('NotasErbase.store.NotaLocalStore', {
     config: {
         model: 'NotasErbase.model.Nota',
         sorters: [{property: 'id', direction: 'DESC'}],
-        groupField: 'grupo_id',
+        grouper: {
+            groupFn: function(record) {
+                return record.getGrupo().get('nome');
+            },
+            sortProperty: 'grupo_id'
+        },
         autoLoad: true,
-        autoSync: true,
         proxy: {
             type: 'localstorage',
             id  : 'notas-locais'

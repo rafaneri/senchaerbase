@@ -4,6 +4,7 @@
 Ext.define('NotasErbase.model.Grupo', {
     extend: 'Ext.data.Model',
     config: {
+        identifier: 'sequential',
         fields: [
         	{name: 'id', type: 'int'},
         	{name: 'nome', type: 'string'}
