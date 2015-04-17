@@ -114,7 +114,6 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     },
 
     onSalvarNota: function(record) {
-        // var store = Ext.data.StoreManager.lookup('NotaLocalStore');
         this.getDataStore().add(record);
         this.getDataStore().sync();
         this.getMain().pop();
@@ -122,7 +121,6 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     },
 
     onRemoverNota: function(record) {
-        // var store = Ext.data.StoreManager.lookup('NotaLocalStore');
         this.getDataStore().remove(record);
         this.getDataStore().sync();
         this.getMain().pop();

@@ -6,8 +6,9 @@ Ext.define('NotasErbase.model.Nota', {
     uses: ['NotasErbase.model.Grupo'],
     config: {
         identifier: 'sequential',
+        idProperty: '_id',
         fields: [
-            {name: 'id', type: 'int'},
+            {name: '_id', type: 'auto'},
             {name: 'titulo', type: 'string'},
             {name: 'comentario', type: 'string'},
             {name: 'grupo_id', type: 'int'}
