@@ -8,12 +8,16 @@ Ext.define('NotasErbase.view.NotaList',{
     doNotaTap: function(list, index, target, record, e, eOpts) {
                 
         this.fireEvent('exibirNota', list, index, target, record, e, eOpts);
+        setTimeout(function() {
+            list.deselect(index);
+        }, 500);
 
     },
     config: {
-        itemTpl: '' +
-        '<div class="notas">{titulo}</div>' +
-        '',
+        allowDeselect: true,
+        itemTpl: [
+            '<div class="notas">{titulo}</div>'
+        ].join(''),
         grouped: true,
         pinHeaders: false,
         listeners: {

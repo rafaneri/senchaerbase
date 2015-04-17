@@ -10,7 +10,7 @@ Ext.define('NotasErbase.model.Grupo', {
         ],
 
         validations: [
-            {type: 'length',    field: 'nome',     min: 2}
+            {type: 'length', field: 'nome', min: 1}
         ]
     }
 });

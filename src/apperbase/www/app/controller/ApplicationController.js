@@ -11,6 +11,7 @@ Ext.define('NotasErbase.controller.ApplicationController', {
             tabnavigation: 'maintabnavigation',
             notalist: 'notalist',
             grupolist: 'grupolist',
+            notaform: 'notaform',
             grupoform: 'grupoform'
         },
 
@@ -31,6 +32,10 @@ Ext.define('NotasErbase.controller.ApplicationController', {
             },
             grupolist: {
                 exibirGrupo: 'onExibirGrupo'
+            },
+            notaform: {
+                salvarNota: 'onSalvarNota',
+                removerNota: 'onRemoverNota'
             },
             grupoform: {
                 salvarGrupo: 'onSalvarGrupo',
@@ -81,7 +86,13 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     },
 
     onExibirNota: function(list, index, node, record) {
-        console.log('event exibirNota');
+        this.setCurrentTitle(this.getMainTitle());
+        if (!this.notaform) {
+            this.notaform = Ext.create('NotasErbase.view.NotaForm');
+        }
+        this.notaform.setRecord(record, true);
+        this.notaform.setTitle('Editar Nota');
+        this.getMain().push(this.notaform);
     },
 
     onExibirGrupo: function(list, index, node, record) {
@@ -94,8 +105,15 @@ Ext.define('NotasErbase.controller.ApplicationController', {
         this.getMain().push(this.grupoform);
     },
 
-    onRemoverGrupo: function(record) {
-        var store = Ext.data.StoreManager.lookup('GrupoStore');
+    onSalvarNota: function(record) {
+        var store = Ext.data.StoreManager.lookup('NotaLocalStore');
+        store.add(record);
+        this.getMain().pop();
+        this.setMainTitle(this.getCurrentTitle());
+    },
+
+    onRemoverNota: function(record) {
+        var store = Ext.data.StoreManager.lookup('NotaLocalStore');
         store.remove(record);
         this.getMain().pop();
         this.setMainTitle(this.getCurrentTitle());
@@ -104,6 +122,13 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     onSalvarGrupo: function(record) {
         var store = Ext.data.StoreManager.lookup('GrupoStore');
         store.add(record);
+        this.getMain().pop();
+        this.setMainTitle(this.getCurrentTitle());
+    },
+
+    onRemoverGrupo: function(record) {
+        var store = Ext.data.StoreManager.lookup('GrupoStore');
+        store.remove(record);
         this.getMain().pop();
         this.setMainTitle(this.getCurrentTitle());
     },
@@ -129,6 +154,13 @@ Ext.define('NotasErbase.controller.ApplicationController', {
             this.grupoform.setTitle('Criar Grupo');
             form = this.grupoform;
             record = Ext.create('NotasErbase.model.Grupo');
+        } else if(this.getActiveTab() == 'notalist') {
+            if (!this.notaform) {
+                this.notaform = Ext.create('NotasErbase.view.NotaForm');
+            }
+            this.notaform.setTitle('Criar Nota');
+            form = this.notaform;
+            record = Ext.create('NotasErbase.model.Nota');
         }
         form.setRecord(record);
         return form;

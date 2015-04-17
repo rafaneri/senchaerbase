@@ -1,9 +1,9 @@
 /**
-* Define a view que contem o formulário de grupos
+* Define a view que contem o formulário de notas
 */
-Ext.define('NotasErbase.view.GrupoForm',{
+Ext.define('NotasErbase.view.NotaForm',{
     extend: 'Ext.Container',
-    xtype: 'grupoform',
+    xtype: 'notaform',
     requires: ['Ext.form.Panel'],
     doSave: function() {
 
@@ -16,7 +16,7 @@ Ext.define('NotasErbase.view.GrupoForm',{
         if(!erros.isValid()) {
             Ext.Msg.alert('Atenção', 'Verifique os campos obrigatórios.', Ext.emptyFn);
         } else {
-            this.fireEvent('salvarGrupo', record);
+            this.fireEvent('salvarNota', record);
         }
 
     },
@@ -25,9 +25,9 @@ Ext.define('NotasErbase.view.GrupoForm',{
             record = formPanel.getRecord(),
             me = this; // infelizmente, mantendo o contexto do escopo
 
-        Ext.Msg.confirm('', 'Deseja mesmo remover o grupo?', function (btn) {
+        Ext.Msg.confirm('', 'Deseja mesmo remover a nota?', function (btn) {
             if (btn === 'yes') {
-                me.fireEvent('removerGrupo', record);
+                me.fireEvent('removerNota', record);
             } 
         }); 
     },
@@ -37,7 +37,7 @@ Ext.define('NotasErbase.view.GrupoForm',{
     },
     config: {
         layout: 'fit',
-        title: 'Criar Grupo',
+        title: 'Criar Nota',
         control: {
             "button[action=doSave]": {
                 tap: 'doSave'
@@ -57,10 +57,29 @@ Ext.define('NotasErbase.view.GrupoForm',{
                     title: 'Dados',
                     items: [
                         {
+                            xtype: 'selectfield',
+                            label: 'Grupo',
+                            name: 'grupo',
+                            store: 'GrupoStore',
+                            valueField: 'id',
+                            displayField: 'nome',
+                            required: true,
+                            defaultPhonePickerConfig : {
+                                doneButton : 'Feito',
+                                cancelButton : 'Cancelar'
+                            }
+                        },
+                        {
                             xtype: 'textfield',
-                            label: 'Nome',
-                            name: 'nome',
+                            label: 'Título',
+                            name: 'titulo',
                             required: true
+                        },
+                        {
+                            xtype: 'textareafield',
+                            label: 'Comentário',
+                            name: 'comentario',
+                            maxRows: 4
                         }
                     ]
                 },

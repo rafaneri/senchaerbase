@@ -14,6 +14,9 @@ Ext.define('NotasErbase.model.Nota', {
         hasOne: {
             model: 'NotasErbase.model.Grupo',
             name: 'grupo'
-        }
+        },
+        validations: [
+            {type: 'length', field: 'titulo', min: 1}
+        ]
     }
 });
