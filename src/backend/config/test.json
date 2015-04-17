@@ -1,0 +1,10 @@
+{
+  "connection": {
+    "server": "localhost",
+    "port": 27017,
+    "database": "erbase"
+  },
+  "app": {
+    "port": 3000
+  }
+}

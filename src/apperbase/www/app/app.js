@@ -18,7 +18,11 @@ Ext.application({
 
     name: 'NotasErbase',
     requires: [],
-    stores: ['NotasErbase.store.GrupoStore', 'NotasErbase.store.NotaLocalStore'],
+    stores: [
+        'NotasErbase.store.GrupoStore', 
+        'NotasErbase.store.NotaLocalStore',
+        'NotasErbase.store.NotaRemotaStore'
+    ],
     controllers: ['NotasErbase.controller.ApplicationController'],
     views: ['NotasErbase.view.Main'],
 

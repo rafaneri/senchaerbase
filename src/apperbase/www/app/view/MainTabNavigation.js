@@ -32,7 +32,8 @@ Ext.define('NotasErbase.view.MainTabNavigation', {
             },
             {
                 title: 'Notas Remotas',
-                html: 'Nuvem',
+                xtype: 'notalist',
+                store: 'NotaRemotaStore',
                 iconCls: 'locate',
                 cls: 'card'
             },

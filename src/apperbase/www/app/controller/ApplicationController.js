@@ -4,7 +4,11 @@
 Ext.define('NotasErbase.controller.ApplicationController', {
     extend: 'Ext.app.Controller',
     config: {
-        currentTitle: '', // mantém o titulo da view antes de sair para o form
+        // mantém o titulo da view antes de sair para o form
+        currentTitle: '', 
+        // mantém o data store a ser utilizado para nota
+        // configurado default para notas locais
+        dataStore: Ext.data.StoreManager.lookup('NotaLocalStore'), 
         refs: {
             main: 'mainview',
             btnAdd: '#btnAdd',
@@ -63,6 +67,8 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     onTabItemChange: function(el, value, oldValue, eOpts) {
         var text = value.tab.getTitle();
         this.setMainTitle(text);
+        this.setDataStore(value.getStore());
+        console.log(value.getStore().getId());
     }, 
 
     showBtnAdd: function() {
@@ -106,15 +112,15 @@ Ext.define('NotasErbase.controller.ApplicationController', {
     },
 
     onSalvarNota: function(record) {
-        var store = Ext.data.StoreManager.lookup('NotaLocalStore');
-        store.add(record);
+        // var store = Ext.data.StoreManager.lookup('NotaLocalStore');
+        this.getDataStore().add(record);
         this.getMain().pop();
         this.setMainTitle(this.getCurrentTitle());
     },
 
     onRemoverNota: function(record) {
-        var store = Ext.data.StoreManager.lookup('NotaLocalStore');
-        store.remove(record);
+        // var store = Ext.data.StoreManager.lookup('NotaLocalStore');
+        this.getDataStore().remove(record);
         this.getMain().pop();
         this.setMainTitle(this.getCurrentTitle());
     },
