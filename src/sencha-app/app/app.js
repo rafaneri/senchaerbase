@@ -14,7 +14,7 @@ Ext.application({
 
     launch: function() {
 
-        Ext.Msg.alert('ERBASE', 'Estamos prontos, vamos lá!', Ext.emptyFn);
+        Ext.Msg.alert('ATENÇÃO', 'Estamos prontos, vamos lá!', Ext.emptyFn);
 
     }
 
